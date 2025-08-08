@@ -1,0 +1,6 @@
+**/__pycache__/
+agents/*/output/
+agents/*/.env
+output/
+.venv/
+usage/

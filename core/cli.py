@@ -12,6 +12,10 @@ from core.scoring import score_items, rank_items
 from core.generation import draft_posts
 from core.seen_cache import filter_new_items
 from core.emailer import send_email
+from core.usage_guard import BudgetGuard
+from core.review import build_review, load_index_map, parse_selection_line
+from core.imap_poll import find_latest_selection
+
 
 # ---------- helpers ----------
 
@@ -111,7 +115,6 @@ def cmd_score(args):
 
     # Optional budget echo
     try:
-        from usage_guard import BudgetGuard
         g = BudgetGuard()
         print(f"[Budget] Spent today: ${g.spent:.4f} / ${g.max_daily:.2f}")
     except Exception:
@@ -174,14 +177,15 @@ def cmd_generate(args):
     print(f"Wrote Markdown digest for picks {picks} → {md_path}")
     #
     if args.email:
-        from core.emailer import send_email
         subject = f"Digest – {datetime.now().strftime('%Y-%m-%d')}"
-        body = "Attached: daily digest with selected posts.\n"
+        # Send the digest inline as plain text
+        body = digest  # plain text; Markdown characters are fine in text/plain
         try:
-            send_email(subject, body, attachments=[str(md_path)])
-            print("Emailed digest to configured recipients.")
-        except Exception as e:
-            print(f"[EMAIL] Error: {e}")
+            send_email(subject, body)  # no attachments
+            print("Emailed digest (inline) to configured recipients.")
+        except Exception:
+            print("[EMAIL] Failed to send inline digest; see traceback above.")
+            raise
 
 
     # Optional budget echo
@@ -191,6 +195,83 @@ def cmd_generate(args):
         print(f"[Budget] Spent today: ${g.spent:.4f} / ${g.max_daily:.2f}")
     except Exception:
         pass
+
+
+def cmd_review_email(args):
+    outdir = run_dir_for_today(os.getenv("OUTPUT_DIR", "output"))
+    scored = read_json(outdir / "scored_items.json")
+    ranked = rank_items(scored)
+    if not ranked:
+        print("No scored items for today. Run: python pipeline.py <agent> score")
+        return
+
+    min_total = args.min_total or int(os.getenv("MIN_TOTAL", "10"))
+
+    body, index_map = build_review(
+        ranked,
+        max_items=args.max_items,
+        min_total=min_total
+    )
+    subject = f"[content_pipeline] Review - {datetime.now().strftime('%Y-%m-%d')} (run {index_map['run_id']})"
+
+    try:
+        send_email(subject, body)
+        print(f"Sent review email for {len(index_map['items'])} items. See: {outdir/'scored_review.txt'}")
+    except Exception:
+        print("[EMAIL] Failed to send review email; see traceback above.")
+        raise
+
+def cmd_review_poll(args):
+    # Idempotence marker
+    outdir = run_dir_for_today(os.getenv("OUTPUT_DIR", "output"))
+    marker = outdir / "review_processed.json"
+
+    if args.reset and marker.exists():
+        marker.unlink(missing_ok=True)
+        print("Reset: cleared processed marker for today.")
+
+    if marker.exists() and not args.force:
+        print("Already processed a reply for today. Use --force to override, or --reset to clear.")
+        return
+
+    # Load map built by review-email
+    index_map = load_index_map()
+    run_id = index_map.get("run_id") or ""
+    sel_line, uid, frm = find_latest_selection(run_id)
+    if not sel_line:
+        print("No valid reply found yet. Will try again later.")
+        return
+
+    picks = parse_selection_line(sel_line)
+    if not picks:
+        print(f"Reply found (from {frm}) but no valid selection in line: {sel_line!r}")
+        return
+
+    # Reuse the existing generate flow programmatically
+    # Construct argparse-style namespace for cmd_generate
+    gen_args = argparse.Namespace(
+        selection=",".join(str(i) for i in picks),
+        top_n=None,
+        model_generation=None,
+        angle=args.angle,
+        email=args.email_on_generate,
+    )
+    print(f"Reply from {frm} → selection {picks}. Triggering generate...")
+    cmd_generate(gen_args)
+
+    # Write processed marker
+    from core.io_utils import save_json
+    save_json(
+        {
+            "run_id": run_id,
+            "selection": picks,
+            "email_uid": uid,
+            "processed_at": datetime.now().isoformat(timespec="seconds"),
+            "from": frm,
+        },
+        marker,
+    )
+    print(f"Marked processed → {marker}")
 
 # ---------- CLI ----------
 
@@ -207,15 +288,15 @@ def main():
                 4. generate  – Generate LinkedIn-style posts for selected items.
 
             Examples:
-                python voice_agent.py fetch
-                python voice_agent.py score --model-scoring gpt-4o-mini
-                python voice_agent.py list
-                python voice_agent.py generate            # defaults to top-N from .env
-                python voice_agent.py generate 1          # just item #1
-                python voice_agent.py generate 1 --angle "Focus on practical voice coaching takeaways"
-                python voice_agent.py generate 1,3        # items #1 and #3
-                python voice_agent.py generate 1,3 --angle "Women in leadership implications for ACT agencies"
-                python voice_agent.py generate all        # all ranked items (careful: cost)
+                python pipeline.py <agent> fetch
+                python pipeline.py <agent> score --model-scoring gpt-4o-mini
+                python pipeline.py <agent> list
+                python pipeline.py <agent> generate            # defaults to top-N from .env
+                python pipeline.py <agent> generate 1          # just item #1
+                python pipeline.py <agent> generate 1 --angle "Focus on practical voice coaching takeaways"
+                python pipeline.py <agent> generate 1,3        # items #1 and #3
+                python pipeline.py <agent> generate 1,3 --angle "Women in leadership implications for ACT agencies"
+                python pipeline.py <agent> generate all        # all ranked items (careful: cost)
 
 
             Notes:
@@ -251,8 +332,29 @@ def main():
     p_gen.add_argument("--top-n", type=int, help="Number of top items when no selection is given (default: TOP_N)")
     p_gen.add_argument("--model-generation", help="OpenAI model for generation (default: from .env MODEL_GENERATION)")
     p_gen.add_argument("--angle", help="Angle hint applied to all selected items (e.g. 'focus on voice coaching takeaways').")
-    p_gen.add_argument("--email", action="store_true",
-                   help="Email the Markdown digest to EMAIL_TO after generating.")
+    p_gen.add_argument(
+        "--email",
+        action="store_true",
+        help="Email the digest inline as plain text to EMAIL_TO after generating."
+    )
+    p_rev_email = sub.add_parser("review-email", help="Email a numbered plain-text list of today's scored items")
+    p_rev_email.add_argument("--max-items", type=int, default=int(os.getenv("REVIEW_MAX_ITEMS", "30")),
+                             help="Limit the number of items listed (default: 30)")
+    p_rev_email.add_argument("--min-total", type=int, help="Only include items with total score >= this (default: MIN_TOTAL or 10)")
+
+    p_rev_email.set_defaults(func=cmd_review_email)
+
+    p_rev_poll = sub.add_parser("review-poll", help="Poll mailbox for a reply and trigger generate")
+    p_rev_poll.add_argument("--force", action="store_true",
+                            help="Ignore processed marker and run anyway")
+    p_rev_poll.add_argument("--reset", action="store_true",
+                            help="Delete processed marker for today before polling")
+    p_rev_poll.add_argument("--angle", help="Angle hint applied when generating from a reply")
+    p_rev_poll.add_argument("--email-on-generate", action="store_true",
+                            help="If set, pass --email to generate after a valid reply")
+    p_rev_poll.set_defaults(func=cmd_review_poll)
+
+
 
     p_gen.set_defaults(func=cmd_generate)
 

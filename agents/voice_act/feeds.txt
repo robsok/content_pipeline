@@ -1,10 +1,42 @@
-    https://www.google.com/alerts/feeds/03587039243997959164/1489122379415424795
-    https://www.google.com/alerts/feeds/03587039243997959164/5708666487547910724
-    https://www.google.com/alerts/feeds/03587039243997959164/1489122379415421619
-    https://www.google.com/alerts/feeds/03587039243997959164/16315513180666018514
-    https://www.google.com/alerts/feeds/03587039243997959164/16315513180666018137
-    https://www.google.com/alerts/feeds/03587039243997959164/16315513180666016414
-    https://www.google.com/alerts/feeds/03587039243997959164/16315513180666017037
-    https://www.google.com/alerts/feeds/03587039243997959164/2098151220191344508
-    # For debugging purposes only
-    https://news.un.org/feed/subscribe/en/news/all/rss.xml
+# Google Alerts
+https://www.google.com/alerts/feeds/03587039243997959164/1489122379415424795
+https://www.google.com/alerts/feeds/03587039243997959164/5708666487547910724
+https://www.google.com/alerts/feeds/03587039243997959164/1489122379415421619
+https://www.google.com/alerts/feeds/03587039243997959164/16315513180666018514
+https://www.google.com/alerts/feeds/03587039243997959164/16315513180666018137
+https://www.google.com/alerts/feeds/03587039243997959164/16315513180666016414
+https://www.google.com/alerts/feeds/03587039243997959164/16315513180666017037
+https://www.google.com/alerts/feeds/03587039243997959164/2098151220191344508
+https://www.google.com/alerts/feeds/03587039243997959164/1772787783613690292
+https://www.google.com/alerts/feeds/03587039243997959164/1772787783613693111
+https://www.google.com/alerts/feeds/03587039243997959164/7797979565629978225
+    
+# Leadership and Business News - Australian Focus
+https://feeds.smartcompany.com.au/smartcompanyallcontent
+https://www.themandarin.com.au/feed/
+https://insidesmallbusiness.com.au/feed
+https://dynamicbusiness.com/feed
+https://www.afr.com/rss
+https://www.theceomagazine.com/feed/
+
+# HR, Workplace & Organisational Development
+https://www.hrmonline.com.au/feed/
+https://www.workplaceexpress.com.au/rss
+https://leadersinheels.com/feed/
+
+# Government, Defence & Health
+https://www.australiandefence.com.au/rss
+https://healthtimes.com.au/rss/
+https://www.psnews.com.au/feed/
+
+# Speaking, Voice & Communication
+https://www.presentation-guru.com/feed/
+https://www.presentationzen.com/rss.xml
+
+# Canberra / ACT local
+https://www.canberratimes.com.au/rss/
+https://hercanberra.com.au/feed/
+https://region.com.au/canberra/feed/
+
+# For debugging purposes only
+https://news.un.org/feed/subscribe/en/news/all/rss.xml

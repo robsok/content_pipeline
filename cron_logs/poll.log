@@ -1,0 +1,144 @@
+Agent not found: agents/voice_act
+Agent not found: agents/voice_act
+Agent not found: agents/voice_act
+Agent not found: agents/voice_act
+Traceback (most recent call last):
+  File "/home/rms110/Agents/content_pipeline/pipeline.py", line 82, in <module>
+    main()
+  File "/home/rms110/Agents/content_pipeline/pipeline.py", line 79, in main
+    core_main()
+  File "/home/rms110/Agents/content_pipeline/core/cli.py", line 362, in main
+    args.func(args)
+  File "/home/rms110/Agents/content_pipeline/core/cli.py", line 238, in cmd_review_poll
+    index_map = load_index_map()
+                ^^^^^^^^^^^^^^^^
+  File "/home/rms110/Agents/content_pipeline/core/review.py", line 81, in load_index_map
+    return json.loads(p.read_text(encoding="utf-8"))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/pathlib.py", line 1029, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/pathlib.py", line 1015, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'output/runs/2025-08-09/index_map.json'
+Traceback (most recent call last):
+  File "/home/rms110/Agents/content_pipeline/pipeline.py", line 82, in <module>
+    main()
+  File "/home/rms110/Agents/content_pipeline/pipeline.py", line 79, in main
+    core_main()
+  File "/home/rms110/Agents/content_pipeline/core/cli.py", line 362, in main
+    args.func(args)
+  File "/home/rms110/Agents/content_pipeline/core/cli.py", line 238, in cmd_review_poll
+    index_map = load_index_map()
+                ^^^^^^^^^^^^^^^^
+  File "/home/rms110/Agents/content_pipeline/core/review.py", line 81, in load_index_map
+    return json.loads(p.read_text(encoding="utf-8"))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/pathlib.py", line 1029, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/pathlib.py", line 1015, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'output/runs/2025-08-09/index_map.json'
+Traceback (most recent call last):
+  File "/home/rms110/Agents/content_pipeline/pipeline.py", line 82, in <module>
+    main()
+  File "/home/rms110/Agents/content_pipeline/pipeline.py", line 79, in main
+    core_main()
+  File "/home/rms110/Agents/content_pipeline/core/cli.py", line 362, in main
+    args.func(args)
+  File "/home/rms110/Agents/content_pipeline/core/cli.py", line 238, in cmd_review_poll
+    index_map = load_index_map()
+                ^^^^^^^^^^^^^^^^
+  File "/home/rms110/Agents/content_pipeline/core/review.py", line 81, in load_index_map
+    return json.loads(p.read_text(encoding="utf-8"))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/pathlib.py", line 1029, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/pathlib.py", line 1015, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'agents/voice_act/output/runs/2025-08-09/index_map.json'
+Traceback (most recent call last):
+  File "/home/rms110/Agents/content_pipeline/pipeline.py", line 82, in <module>
+    main()
+  File "/home/rms110/Agents/content_pipeline/pipeline.py", line 79, in main
+    core_main()
+  File "/home/rms110/Agents/content_pipeline/core/cli.py", line 362, in main
+    args.func(args)
+  File "/home/rms110/Agents/content_pipeline/core/cli.py", line 238, in cmd_review_poll
+    index_map = load_index_map()
+                ^^^^^^^^^^^^^^^^
+  File "/home/rms110/Agents/content_pipeline/core/review.py", line 81, in load_index_map
+    return json.loads(p.read_text(encoding="utf-8"))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/pathlib.py", line 1029, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/pathlib.py", line 1015, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'agents/voice_act/output/runs/2025-08-09/index_map.json'
+Traceback (most recent call last):
+  File "/home/rms110/Agents/content_pipeline/pipeline.py", line 82, in <module>
+    main()
+  File "/home/rms110/Agents/content_pipeline/pipeline.py", line 79, in main
+    core_main()
+  File "/home/rms110/Agents/content_pipeline/core/cli.py", line 362, in main
+    args.func(args)
+  File "/home/rms110/Agents/content_pipeline/core/cli.py", line 238, in cmd_review_poll
+    index_map = load_index_map()
+                ^^^^^^^^^^^^^^^^
+  File "/home/rms110/Agents/content_pipeline/core/review.py", line 81, in load_index_map
+    return json.loads(p.read_text(encoding="utf-8"))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/pathlib.py", line 1029, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/pathlib.py", line 1015, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'agents/voice_act/output/runs/2025-08-09/index_map.json'
+Traceback (most recent call last):
+  File "/home/rms110/Agents/content_pipeline/pipeline.py", line 82, in <module>
+    main()
+  File "/home/rms110/Agents/content_pipeline/pipeline.py", line 79, in main
+    core_main()
+  File "/home/rms110/Agents/content_pipeline/core/cli.py", line 362, in main
+    args.func(args)
+  File "/home/rms110/Agents/content_pipeline/core/cli.py", line 238, in cmd_review_poll
+    index_map = load_index_map()
+                ^^^^^^^^^^^^^^^^
+  File "/home/rms110/Agents/content_pipeline/core/review.py", line 81, in load_index_map
+    return json.loads(p.read_text(encoding="utf-8"))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/pathlib.py", line 1029, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/pathlib.py", line 1015, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'agents/voice_act/output/runs/2025-08-09/index_map.json'
+Traceback (most recent call last):
+  File "/home/rms110/Agents/content_pipeline/pipeline.py", line 82, in <module>
+    main()
+  File "/home/rms110/Agents/content_pipeline/pipeline.py", line 79, in main
+    core_main()
+  File "/home/rms110/Agents/content_pipeline/core/cli.py", line 362, in main
+    args.func(args)
+  File "/home/rms110/Agents/content_pipeline/core/cli.py", line 238, in cmd_review_poll
+    index_map = load_index_map()
+                ^^^^^^^^^^^^^^^^
+  File "/home/rms110/Agents/content_pipeline/core/review.py", line 81, in load_index_map
+    return json.loads(p.read_text(encoding="utf-8"))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/pathlib.py", line 1029, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/pathlib.py", line 1015, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'agents/voice_act/output/runs/2025-08-09/index_map.json'

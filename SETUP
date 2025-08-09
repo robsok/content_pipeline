@@ -1,0 +1,31 @@
+1. Clone the repo
+bash
+Copy
+Edit
+git clone git@github.com:robsok/content_pipeline.git
+cd content_pipeline
+2. Create & activate your virtual environment
+Linux / WSL / macOS
+
+bash
+Copy
+Edit
+python3 -m venv venv
+source venv/bin/activate
+Windows (PowerShell)
+
+powershell
+Copy
+Edit
+python -m venv venv
+venv\Scripts\Activate
+3. Install dependencies
+bash
+Copy
+Edit
+pip install --upgrade pip
+pip install -r requirements.txt
+(If you don’t yet have a requirements.txt, run pip freeze > requirements.txt now while your current environment is working so it’s ready for the next clean start.)
+
+4. Run your app / scripts
+

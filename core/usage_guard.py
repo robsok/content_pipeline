@@ -69,5 +69,13 @@ class BudgetGuard:
         self.state["spent_usd"] = round(self.spent + total, 6)
         self._flush()
 
+    # usage_guard.py
     def _flush(self):
-        self
+        try:
+            tmp = self.path.with_suffix(self.path.suffix + ".tmp")
+            tmp.write_text(json.dumps(self.state, indent=2), encoding="utf-8")
+            tmp.replace(self.path)  # atomic on same filesystem
+        except Exception:
+            pass  # best-effort; never break the pipeline on usage logging
+
+

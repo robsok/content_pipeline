@@ -1,6 +1,7 @@
 **/__pycache__/
 agents/*/output/
 agents/*/.env
+cron_logs/
 output/
 .venv/
 usage/

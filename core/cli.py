@@ -199,6 +199,10 @@ def cmd_generate(args):
 
 def cmd_review_email(args):
     outdir = run_dir_for_today(os.getenv("OUTPUT_DIR", "output"))
+    scored_path = outdir / "scored_items.json"
+    if not Path(scored_path).exists():
+        print("No scored_items.json for today. Run: fetch → score first.")
+        return
     scored = read_json(outdir / "scored_items.json")
     ranked = rank_items(scored)
     if not ranked:
